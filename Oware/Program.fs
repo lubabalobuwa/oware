@@ -24,7 +24,8 @@ type Board = {
 
 
 let getSeeds n board = 
-    let (h1,h2,h3,h4,h5,h6),(h7,h8,h9,h10,h11,h12) = board
+    let {player1 =myp1; player2 = myp2} = board
+    let (h1,h2,h3,h4,h5,h6),(h7,h8,h9,h10,h11,h12) = myp1.houses,myp2.houses
     match n with
         |1 -> h1
         |2 -> h2
@@ -40,6 +41,8 @@ let getSeeds n board =
         |_ -> h12
 
 let useHouse n board = // working here
+    failwith "Not implemented"
+    (*
     let (h1,h2,h3,h4,h5,h6),(h7,h8,h9,h10,h11,h12) = board
     match n with
     |1 -> (0,5,5,5,5,4),(4,4,4,4,4,4)
@@ -54,7 +57,7 @@ let useHouse n board = // working here
     |10 -> (5,5,4,4,4,4),(4,4,4,0,5,5)
     |11 -> (5,5,5,4,4,4),(4,4,4,4,0,5)
     |_ -> (5,5,5,5,4,4),(4,4,4,4,4,0)
-
+    *)
 
 
 let start position = 
@@ -67,7 +70,7 @@ let start position =
         | South -> "South's turn"
         | _ -> "North's turn"   
     let myboard = {state=myState position; player1=p1; player2=p2}
-    (p1.houses,p2.houses)
+    (myboard)
 
 
 let score board = failwith "Not implemented"
