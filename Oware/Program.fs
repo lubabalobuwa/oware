@@ -22,7 +22,6 @@ type Board = {
     player2: Player
 }
 
-
 let getSeeds n board = 
     let (h1,h2,h3,h4,h5,h6),(h7,h8,h9,h10,h11,h12) = board
     match n with
