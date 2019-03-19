@@ -49,7 +49,7 @@ let start position =
         match n with 
         | South -> "South's turn"
         | _ -> "North's turn"   
-    let board = {state=myState position; player1=p1; player2=p2}
+    let myboard = {state=myState position; player1=p1; player2=p2}
     (p1.houses,p2.houses)
 
 let score board = failwith "Not implemented"
