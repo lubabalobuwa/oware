@@ -54,8 +54,6 @@ let useHouse n board = // working here
     |11 -> (5,5,5,4,4,4),(4,4,4,4,0,5)
     |_ -> (5,5,5,5,4,4),(4,4,4,4,4,0)
 
-
-
 let start position = 
 
     let p1 = {score=0; houses= 4,4,4,4,4,4}
@@ -68,11 +66,10 @@ let start position =
     let board = {state=myState position; player1=p1; player2=p2}
     (p1.houses,p2.houses)
 
-
 let score board = failwith "Not implemented"
 
-let gameState board = failwith "Not implemented"
-
+let gameState board = 
+    
 
 [<EntryPoint>]
 let main _ =
