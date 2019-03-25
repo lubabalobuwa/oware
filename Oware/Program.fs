@@ -6,6 +6,7 @@ type StartingPosition =
     | South
     | North
 
+
 type State = 
     | SouthTurn of string
     | NorthTurn of string 
@@ -13,6 +14,7 @@ type State =
     | SouthWin of string
     | NorthWin of string 
     | Draw of string 
+
 
 type Player = {
     score: int
@@ -39,13 +41,13 @@ let getSeeds n board =
         |9 -> h9
         |10 -> h10
         |11 -> h11
-        |_ -> h12
+        |_ -> h12 //get the number of seeds from specified house
 
-let useHouse n board = 
+let useHouse n board = // working here
     failwith "Not implemented"
-   
-let start position = 
 
+let start position = 
+   // Takes in starting position and returns an initialized game where the person in the specified position starts the game
     let p1 = {score=0; houses= 4,4,4,4,4,4}
     let p2 = {score=0; houses= 4,4,4,4,4,4}
 
@@ -54,7 +56,7 @@ let start position =
         | South -> "South's turn"
         | _ -> "North's turn"   
     let myboard = {state=myState position; player1=p1; player2=p2}
-    (myboard)
+    (myboard) // return the updated game board
 
 let score board = 
        let {player1 =myp1; player2 = myp2} = board
