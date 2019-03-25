@@ -140,7 +140,7 @@ let ``Contiguous captured seeds are taken`` () =
     game |> hasSeedCount (3, 1, 0, 8, 2, 7, 7, 7, 7, 1, 0, 0)
     score game |> should equal (5, 0)
     gameState game |> should equal "North's turn"
-
+     
 [<Test>]
 let ``The original house is skipped when sowing seeds`` () =
     let game = playGame [1; 7; 2; 9; 3; 10; 1; 11; 2; 9; 4; 7; 5; 12; 3; 11; 6]
