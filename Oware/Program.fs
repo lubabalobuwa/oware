@@ -48,7 +48,7 @@ let start position =
         | South -> "South's turn"
         | _ -> "North's turn"   
     let myboard = {state=myState position; player1=p1; player2=p2}
-    (myboard) // return the updated game board
+    (myboard) 
 
 
 let score board = failwith "Not implemented"
