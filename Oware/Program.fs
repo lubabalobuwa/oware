@@ -1,5 +1,7 @@
 ﻿module Oware
 
+open System.Net.Http.Headers
+
 type StartingPosition =
     | South
     | North
@@ -39,26 +41,9 @@ let getSeeds n board =
         |11 -> h11
         |_ -> h12
 
-let useHouse n board = // working here
+let useHouse n board = 
     failwith "Not implemented"
-    (*
-    let (h1,h2,h3,h4,h5,h6),(h7,h8,h9,h10,h11,h12) = board
-    match n with
-    |1 -> (0,5,5,5,5,4),(4,4,4,4,4,4)
-    |2 -> (4,0,5,5,5,5),(4,4,4,4,4,4)
-    |3 ->  (4,4,0,5,5,5),(5,4,4,4,4,4)
-    |4 ->  (4,4,4,0,5,5),(5,5,4,4,4,4)
-    |5 -> (4,4,4,4,0,5),(5,5,5,4,4,4)
-    |6 -> (4,4,4,4,4,0),(5,5,5,5,4,4)
-    |7 -> (4,4,4,4,4,4),(0,5,5,5,5,4)
-    |8 -> (4,4,4,4,4,4),(4,0,5,5,5,5)
-    |9 -> (5,4,4,4,4,4),(4,4,0,5,5,5)
-    |10 -> (5,5,4,4,4,4),(4,4,4,0,5,5)
-    |11 -> (5,5,5,4,4,4),(4,4,4,4,0,5)
-    |_ -> (5,5,5,5,4,4),(4,4,4,4,4,0)
-
-    *)
-
+   
 let start position = 
 
     let p1 = {score=0; houses= 4,4,4,4,4,4}
@@ -71,10 +56,20 @@ let start position =
     let myboard = {state=myState position; player1=p1; player2=p2}
     (myboard)
 
-let score board = failwith "Not implemented"
+let score board = 
+       let {player1 =myp1; player2 = myp2} = board
+       (myp1.score,myp2.score)
 
-let gameState board = 
-    
+let gameState board =
+    let {player1 =myp1; player2 = myp2} = board
+    let southScore,northScore = myp1.score,myp2.score
+
+    match southScore=24,northScore = 24 with
+    |true,true -> "Game ended in a draw"
+    |_ -> match southScore>=25,northScore>=25 with
+            |true,false -> "South won"
+            |false,true -> "North won"
+            |_ -> board.state
 
 [<EntryPoint>]
 let main _ =
