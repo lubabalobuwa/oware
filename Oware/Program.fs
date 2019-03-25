@@ -4,14 +4,6 @@ type StartingPosition =
     | South
     | North
 
-type State = 
-    | SouthTurn of string
-    | NorthTurn of string 
-    | GameEnd of string 
-    | SouthWin of string
-    | NorthWin of string 
-    | Draw of string 
-
 type Player = {
     score: int
     houses: int*int*int*int*int*int
@@ -38,30 +30,16 @@ let getSeeds n board =
         |9 -> h9
         |10 -> h10
         |11 -> h11
-        |_ -> h12
+        |_ -> h12 //get the number of seeds from specified house
 
 let useHouse n board = // working here
-    failwith "Not implemented"
-    (*
-    let (h1,h2,h3,h4,h5,h6),(h7,h8,h9,h10,h11,h12) = board
-    match n with
-    |1 -> (0,5,5,5,5,4),(4,4,4,4,4,4)
-    |2 -> (4,0,5,5,5,5),(4,4,4,4,4,4)
-    |3 ->  (4,4,0,5,5,5),(5,4,4,4,4,4)
-    |4 ->  (4,4,4,0,5,5),(5,5,4,4,4,4)
-    |5 -> (4,4,4,4,0,5),(5,5,5,4,4,4)
-    |6 -> (4,4,4,4,4,0),(5,5,5,5,4,4)
-    |7 -> (4,4,4,4,4,4),(0,5,5,5,5,4)
-    |8 -> (4,4,4,4,4,4),(4,0,5,5,5,5)
-    |9 -> (5,4,4,4,4,4),(4,4,0,5,5,5)
-    |10 -> (5,5,4,4,4,4),(4,4,4,0,5,5)
-    |11 -> (5,5,5,4,4,4),(4,4,4,4,0,5)
-    |_ -> (5,5,5,5,4,4),(4,4,4,4,4,0)
-    *)
+ failwith "Not implemented"
+
+    
 
 
 let start position = 
-
+   // Takes in starting position and returns an initialized game where the person in the specified position starts the game
     let p1 = {score=0; houses= 4,4,4,4,4,4}
     let p2 = {score=0; houses= 4,4,4,4,4,4}
 
@@ -70,7 +48,7 @@ let start position =
         | South -> "South's turn"
         | _ -> "North's turn"   
     let myboard = {state=myState position; player1=p1; player2=p2}
-    (myboard)
+    (myboard) // return the updated game board
 
 
 let score board = failwith "Not implemented"
