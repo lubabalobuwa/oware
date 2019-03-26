@@ -69,9 +69,41 @@ let useHouse n board =
        let newP2 = { myp2 with houses = nHouses }
        {myBoard with player1=newP1;player2=newP2}
 
-   let CheckForEnoughSeeds myBoard houseNumber target=failwith "hh"
+   let captureContigous myBoard captureHouse state = failwith "not implemented"
 
-   let rec add value myBoard currentHouse previousHouseSeeds = failwith "hh"
+   let updateScore total myBoard= failwith "not implemented"
+
+   let house12Check n =
+       match n with
+        |12 -> 1 
+        |_ -> n+1 
+    
+   let checkFirstHouse n =  
+       match n with
+        |0 -> 12 
+        |_ -> n 
+
+
+   let CheckForEnoughSeeds myBoard houseNumber target=
+            let seedNumber = getSeeds (houseNumber) myBoard 
+            match (houseNumber+seedNumber)>=target with
+                |true -> true 
+                |_ -> false 
+
+   let rec add value myBoard currentHouse previousHouseSeeds = 
+            match value = 0 with 
+             |true -> 
+                     let newBoard,theScores = captureContigous myBoard (checkFirstHouse (currentHouse-1)) myBoardState 
+                     updateScore theScores newBoard                                  
+             |_ -> 
+                   match currentHouse,currentHouse=n with
+                       |12,false -> 
+                               let seedNumber = (getSeeds currentHouse myBoard)+1 
+                               add (value-1) (setSeeds myBoard currentHouse (seedNumber)) (1) (seedNumber)  
+                       |_,false ->
+                               let seedNumber = (getSeeds currentHouse myBoard)+1                           
+                               add (value-1) (setSeeds myBoard currentHouse (seedNumber)) (currentHouse+1) (seedNumber) 
+                       |_ -> add (value) (myBoard) (house12Check (currentHouse)) (previousHouseSeeds)
 
    let moveMyHouse houseNumber =
     
