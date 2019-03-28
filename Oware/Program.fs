@@ -64,9 +64,51 @@ let useHouse n board =
        let newP2 = { myp2 with houses = nHouses }
        {myBoard with player1=newP1;player2=newP2}
 
-   let captureContigous myBoard captureHouse state = failwith "not implemented"
+   let checkSide state house playerTotals =
+        let sTotal,_ = playerTotals
+        let _,nTotal = playerTotals
+        match state with
+            |"South's turn" -> match house,nTotal<>0,nTotal=0&&sTotal=0 with
+                                |_,_,true -> true
+                                |7,true,_|8,true,_|9,true,_|10,true,_|11,true,_|12,true,_-> true
+                                |_ -> false
+            |_ -> match house,sTotal<>0,nTotal=0&&sTotal=0 with 
+                   |_,_,true -> true
+                   |1,true,_|2,true,_|3,true,_|4,true,_|5,true,_|6,true,_ -> true
+                   |_ -> false
 
-   let updateScore total myBoard= failwith "not implemented"
+   let captureContigous myBoard captureHouse state = 
+        let rec Capturing myBoard score captureHouse = 
+           let {player1 =myp1; player2 = myp2} = myBoard
+           let (h1,h2,h3,h4,h5,h6),(h7,h8,h9,h10,h11,h12) = myp1.houses,myp2.houses
+
+           let sTotal,nTotal = (h1+h2+h3+h4+h5+h6),(h7+h8+h9+h10+h11+h12)
+           let seedNums = getSeeds captureHouse myBoard
+
+           let newStotal,newNtotal =
+            match state with
+            |"South's turn" -> (sTotal),(nTotal-seedNums)
+            |_ -> (sTotal-seedNums),(nTotal)
+
+           match (checkSide state captureHouse (newStotal,newNtotal)),seedNums=2||seedNums=3 with 
+            |true,true -> Capturing (setSeeds myBoard captureHouse 0 ) (score+seedNums) (captureHouse-1)
+            |_ -> myBoard,score
+                   
+        Capturing myBoard 0 captureHouse
+
+   let updateScore total myBoard=
+        let {player1 =myp1; player2 = myp2} = myBoard
+        let state = myBoard.state
+
+        let newP1Score,newP2score,newState = 
+         match state with
+            |"North's turn" -> southScore,(northScore+total),"South's turn"
+            |_ -> (southScore+total),northScore,"North's turn"
+
+        let newP1 = {myp1 with score = newP1Score }
+        let newP2 = {myp2 with score = newP2score}
+
+        { myBoard with player1 = newP1;player2 = newP2; state= newState }
 
    let house12Check n =
        match n with
